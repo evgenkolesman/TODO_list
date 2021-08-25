@@ -1,4 +1,9 @@
-package pooh;
+package pooh.server;
+
+import pooh.Req;
+import pooh.service.QueueService;
+import pooh.service.Service;
+import pooh.service.TopicService;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,14 +11,13 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.security.Provider;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class PoohServer {
-    private final HashMap<String, Provider.Service> modes = new HashMap<>();
+    private final HashMap<String, Service> modes = new HashMap<>();
 
     public void start() {
         modes.put("queue", new QueueService());
@@ -30,7 +34,7 @@ public class PoohServer {
                         byte[] buff = new byte[1_000_000];
                         var total = input.read(buff);
                         var text = new String(Arrays.copyOfRange(buff, 0, total), StandardCharsets.UTF_8);
-                        var req = new Req(text);
+                        Req req = Req.of(text);
                         var resp = modes.get(req.mode()).process(req);
                         out.write(("HTTP/1.1 " + resp.status() + " OK\r\n").getBytes());
                         out.write(resp.text().getBytes());
