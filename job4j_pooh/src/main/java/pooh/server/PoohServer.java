@@ -1,4 +1,9 @@
-package pooh;
+package pooh.server;
+
+import pooh.Req;
+import pooh.service.QueueService;
+import pooh.service.Service;
+import pooh.service.TopicService;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,5 +1,9 @@
 package pooh;
 
+/**
+ * Example functional of Stream collections class
+ */
+
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentHashMap;
 
