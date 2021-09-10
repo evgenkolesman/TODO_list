@@ -17,6 +17,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.IntStream;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 
 @Component
@@ -32,7 +34,7 @@ public class TodoDao {
     private TodoDao() {
         Properties cfg = new Properties();
         try (BufferedReader io = new BufferedReader(
-                new FileReader("./src/main/resources/db.properties")
+                new FileReader("/home/evgenios/IdeaProjects/TODO_list/src/main/resources/db.properties")
         )) {
             cfg.load(io);
         } catch (Exception e) {
@@ -173,11 +175,12 @@ public class TodoDao {
                 new Item("item1"),
                 new Item("item2"));
 
-        for (Item i : list1) {
-            tracker.add(i);
-        }
-        tracker.findAll().forEach(System.out::println);
+//        for (Item i : list1) {
+//            tracker.add(i);
+//        }
 
+        IntStream.range(3, 11).forEach(tracker :: delete);
+        tracker.findAll().forEach(System.out::println);
 //        System.out.println(tracker.findById(1));
 //        System.out.println(tracker.replace(18, new Item("item3 new")));
 //        tracker.findByName("item1").forEach(System.out::println);
