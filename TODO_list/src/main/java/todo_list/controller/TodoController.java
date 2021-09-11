@@ -30,7 +30,7 @@ public class TodoController {
     @GetMapping("")
     public String index(Model model) {
         model.addAttribute("itemstable", todoDao.findAll());
-        return "/index";
+        return "index";
     }
 
     @PostMapping()
@@ -38,11 +38,11 @@ public class TodoController {
         try {
              todoDao.add(item);
             if(bindingResult.hasErrors()) {
-                return "/index";
+                return "index";
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
         }
-        return "redirect:/index";
+        return "create";
     }
 }

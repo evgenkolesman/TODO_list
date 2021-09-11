@@ -87,7 +87,7 @@
                 Form for add new Item:
             </div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/index.do" method="post">
+                <form action="<%=TodoController.create(new Item(description)%>" method="post">
                     <div class="form-group">
                         <label for="description" style="font-weight: bold">Description</label>
                         <input type="text" class="form-control" id="description" placeholder="Enter description..."/>
