@@ -21,32 +21,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>TODOList</title>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script>
-        function validate() {
-            if ($('#description').val() === "") {
-                alert("Пожалуйста введите описание");
-            }
-            return true;
-        }
-
-        function addRow() {
-            if (validate()) {
-                let id = $('#id').val();
-                let description = $('#description').val();
-                let created = $('#created').val();
-                let isDone = $('#isDone').val();
-
-                $('#table tr:last').after(
-                    '<tr>'
-                    + '<td>' + id + '</td>'
-                    + '<td>' + description + '</td>'
-                    + '<td>' + created+ '</td>'
-                    + '<td>' + isDone + '</td>'
-                    + '</tr>'
-                );
-            }
-        }
-    </script>
+    <script src="scripts/valid.js"></script>
+    <script src="scripts/script.js"></script>
 </head>
 <body>
 <div class="container pt-3">
@@ -62,10 +38,12 @@
             <ul class="nav">
                 <li class="nav-item">
                     <label for="filter">Show all tasks</label>
-                    <input type="checkbox" id="filter" name="filter" value="filter" checked onchange="${todoDao.findAll()}">
+                    <input type="checkbox" id="filter" name="filter" value="filter" checked onchange="${items.findAll()}">
                 </li>
             </ul>
         </div>
+
+
         <div class="col-4">
             <ul class="nav">
                 <li class="nav-item">
@@ -73,13 +51,13 @@
                 </li>
             </ul>
         </div>
-<!--        <div style="position: fixed; right: 1px; top: 16px">-->
-<!--            <ul class="nav">-->
-<!--                <li class="nav-item">-->
-<!--                    <button type="button" class="btn btn-primary" onclick="redirectPageLogin()">Enter</button>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </div>-->
+        <div style="position: fixed; right: 1px; top: 16px">
+            <ul class="nav">
+                <li class="nav-item">
+                    <button type="button" class="btn btn-primary" onclick="redirectPageLogin()">Enter</button>
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="row">
         <div class="card" style="width: 100%">
@@ -87,18 +65,18 @@
                 Form for add new Item:
             </div>
             <div class="card-body">
-                <form action="<%=TodoController.create(new Item(description)%>" method="post">
+                <form id="new-item-form">
                     <div class="form-group">
                         <label for="description" style="font-weight: bold">Description</label>
                         <input type="text" class="form-control" id="description" placeholder="Enter description..."/>
                     </div>
-<!--                    <div class="form-group">-->
-<!--                        <label for="cIds" style="font-weight: bold">Category</label>-->
-<!--                        <select class="form-control" name="cIds" id="cIds" multiple required>-->
+                    <div class="form-group">
+                        <label for="cIds" style="font-weight: bold">Category</label>
+                        <select class="form-control" name="cIds" id="cIds" multiple required>
 
-<!--                        </select>-->
-<!--                    </div>-->
-                    <input type="submit" onclick="addRow()"/>
+                        </select>
+                    </div>
+                    <input type="submit"/>
                 </form>
             </div>
         </div>
@@ -123,8 +101,8 @@
                     <tbody id="tableBody">
                     <div class="col-2">
                         <ul class="nav">
-                            <li>
-                                <a href='<c:url value="todoDao.getAll()" />'> </a>
+                            <li th:each="Items item : ${item.getAll()}">
+                                <a th:href="/index"> item</a>
                             </li>
                         </ul>
                     </div>
