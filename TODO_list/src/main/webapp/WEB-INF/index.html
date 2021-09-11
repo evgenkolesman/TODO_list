@@ -101,7 +101,7 @@
                     <tbody id="tableBody">
                     <div class="col-2">
                         <ul class="nav">
-                            <li th:each="Items item : ${item.getAll()}">
+                            <li th:each="Items item : ${item.findAll()}">
                                 <a th:href="/index"> item</a>
                             </li>
                         </ul>

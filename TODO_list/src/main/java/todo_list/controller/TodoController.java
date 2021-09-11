@@ -27,14 +27,14 @@ public class TodoController {
         this.todoDao = todoDao;
     }
 
-    @GetMapping("")
+    @GetMapping()
     public String index(Model model) {
         model.addAttribute("itemstable", todoDao.findAll());
         return "index";
     }
 
     @PostMapping()
-    public String create( @ModelAttribute("item1") Item item, BindingResult bindingResult) {
+    public String create(@ModelAttribute("item1") Item item, BindingResult bindingResult) {
         try {
              todoDao.add(item);
             if(bindingResult.hasErrors()) {
